@@ -31,7 +31,7 @@ function Header() {
             <Button className='w-12 h-10 sm:inline' color='grey' pill><FaMoon></FaMoon></Button>
             
             <Link to='/sign-in'>
-                <Button gradientDuoTone='purpleToBlue'>Sign In</Button>
+                <Button gradientDuoTone='purpleToBlue' outline>Sign In</Button>
             </Link>
             <Navbar.Toggle></Navbar.Toggle>
         </div>
