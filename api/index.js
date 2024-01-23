@@ -1,6 +1,7 @@
 const express=require('express')
 const mongoose=require('mongoose')
 require('dotenv').config()
+const userRoutes=require("./Routes/user.route.js");
 
 const app=express();
 
@@ -16,4 +17,8 @@ mongoose
 .catch((err)=>{
     console.log(err);
 })
+
+app.use('/api/user',userRoutes);
+
+
 
