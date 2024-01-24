@@ -27,9 +27,8 @@ function Header() {
             <AiOutlineSearch></AiOutlineSearch>
         </Button>
         <div className='flex gap-2 md:order-2'>
-            <Button className='w-12 h-10 sm:inline' color='grey' pill><FaMoon></FaMoon></Button>
-            
-            <Link to='/sign-in'>
+            <Button className='w-12 h-10 sm:inline' color='grey' pill><FaMoon></FaMoon></Button>      
+            <Link to='/signUp'>
                 <Button gradientDuoTone='purpleToBlue' outline>Sign In</Button>
             </Link>
             <Navbar.Toggle></Navbar.Toggle>
