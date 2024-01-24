@@ -1,11 +1,14 @@
 const becryptjs=require("bcryptjs")
 
-const sigup= async  (req,res)=>{
+const sigup= async  (req,res,next)=>{
     const {username,email,password}=req.body;
     if(!username || !email || !password || username===' ' || email===' ' || password===' '){
         return res.status(400).json({
             message:"All feilds are required"
         })
+    }
+    else{
+        next(errorHandler(400,"All feilds are required"));
     }
     const newUser=new User({
         username,
@@ -17,9 +20,7 @@ const sigup= async  (req,res)=>{
     try {
         await newUser.save();
     } catch (error) {
-        res.json({
-            message:"records saved !!!",
-        })
+        next(error)
     }
     
     
