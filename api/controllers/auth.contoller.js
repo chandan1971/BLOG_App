@@ -1,4 +1,6 @@
-const becryptjs=require("bcryptjs")
+const bcryptjs=require("bcryptjs")
+const errorHandler=require("../utils/error.js")
+const User=require("../models/user.model.js")
 
 const sigup= async  (req,res,next)=>{
     const {username,email,password}=req.body;
@@ -8,16 +10,17 @@ const sigup= async  (req,res,next)=>{
         })
     }
     else{
-        next(errorHandler(400,"All feilds are required"));
+        next();
     }
+    const hashedPassword= bcryptjs.hashSync(password,10);
     const newUser=new User({
         username,
         email,
         password:hashedPassword,
     });
 
-    const hashedPassword= becryptjs.hashSync(password,10);
     try {
+        console.log(newUser);
         await newUser.save();
     } catch (error) {
         next(error)
