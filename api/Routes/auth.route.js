@@ -1,9 +1,9 @@
 const express=require('express')
-const sigup = require('../controllers/auth.contoller.js')
+const signup = require('../controllers/auth.contoller.js')
 
 const router=express.Router()
 
-router.post('/signUp',sigup)
+router.post('/signUp',signup)
 
 module.exports=router
 

@@ -2,15 +2,10 @@ const bcryptjs=require("bcryptjs")
 const errorHandler=require("../utils/error.js")
 const User=require("../models/user.model.js")
 
-const sigup= async  (req,res,next)=>{
+const signup= async  (req,res,next)=>{
     const {username,email,password}=req.body;
     if(!username || !email || !password || username===' ' || email===' ' || password===' '){
-        return res.status(400).json({
-            message:"All feilds are required"
-        })
-    }
-    else{
-        next();
+        next(errorHandler(400, 'All fields are required'));
     }
     const hashedPassword= bcryptjs.hashSync(password,10);
     const newUser=new User({
@@ -20,8 +15,8 @@ const sigup= async  (req,res,next)=>{
     });
 
     try {
-        console.log(newUser);
         await newUser.save();
+        res.send(200).json({message : "Signup Succesful", success : true})
     } catch (error) {
         next(error)
     }
@@ -30,4 +25,4 @@ const sigup= async  (req,res,next)=>{
 }
 
 
-module.exports=sigup
+module.exports=signup
