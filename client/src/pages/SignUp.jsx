@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 
 function SignUp() {
   const [formData,setFormData]=useState({});
-  const[erroMessage,setErrorMessage]=useState(null);
+  const[erroMessage,setErrorMessage]=useState('');
   const[loading,setLoading]=useState(false);
-  const navigate=useNavigate;
+  const navigate=useNavigate();
   const handleChange=(e)=>{
     setFormData({...formData,[e.target.id]:e.target.value.trim()})
   }
@@ -24,17 +24,16 @@ function SignUp() {
         body:JSON.stringify(formData),
       })
       const data=await res.json(); 
-      console.log(data);
-      if(data.success===false){
-        return setErrorMessage(data.message);
-      }
       setLoading(false);
-      if(res.ok){
+      console.log(data.success);
+      if(data.success===true){
         navigate('/signIn')
       }
+      else{
+        setErrorMessage('Signup Failed !')
+      }
     } 
-    catch (error) {
-      setErrorMessage(error.message);
+    catch (err) {
       setLoading(false);
     }
   }

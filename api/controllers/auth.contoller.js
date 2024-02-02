@@ -1,6 +1,7 @@
 const bcryptjs=require("bcryptjs")
 const errorHandler=require("../utils/error.js")
 const User=require("../models/user.model.js")
+const jwt=require('jsonwebtoken')
 
 const signup= async  (req,res,next)=>{
     const {username,email,password}=req.body;
@@ -16,7 +17,7 @@ const signup= async  (req,res,next)=>{
 
     try {
         await newUser.save();
-        res.send(200).json({message : "Signup Succesful", success : true})
+        res.status(200).send({message : "Signup Succesful", success : true})
     } catch (error) {
         next(error)
     }
@@ -24,5 +25,38 @@ const signup= async  (req,res,next)=>{
     
 }
 
+const signin=async(req,res,next)=>{
+    const {email,password}=req.body
+    if(!email || !password || email===' ' ||password==='' ){
+        next(errorHandler(400,`All Feilds are required`))
+    }
 
-module.exports=signup
+    try {
+        const validUser=await User.findOne({email});
+        if(!validUser){
+            next(errorHandler(404,`User Not Found`))
+        }
+        const validPassword=bcryptjs.compareSync(password,validUser.password);
+        if(!validPassword){
+            return next(errorHandler(400,`Invalid Password`));
+        }
+        const token=jwt.sign(
+            {
+                id:validUser._id,
+            },
+            process.env.JWT_SECRET,
+        )
+        const {password: pass,...rest}=validUser._doc;
+
+        res.status(200).cookie('access_token',token,{
+            httpOnly:true
+        }).send(rest)
+
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+
+module.exports={signup,signin}
