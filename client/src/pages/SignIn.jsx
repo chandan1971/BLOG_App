@@ -1,11 +1,15 @@
 import { Alert, Button, Label, Spinner, TextInput} from 'flowbite-react'
 import {Link,useNavigate} from "react-router-dom"
 import React, { useState } from 'react'
+import {useDispatch } from 'react-redux';
+import { signInStart,signInSuccess } from '../redux/user/userSlice';
+
 
 function SignIn() {
   const [formData,setFormData]=useState({});
   const[erroMessage,setErrorMessage]=useState('');
   const[loading,setLoading]=useState(false);
+  const dispatch =useDispatch();
   const navigate=useNavigate();
   const handleChange=(e)=>{
     setFormData({...formData,[e.target.id]:e.target.value.trim()})
@@ -16,8 +20,7 @@ function SignIn() {
       return setErrorMessage(`Please Fillout All Fields`)
     }
     try {
-      setLoading(true);
-      setErrorMessage(null);
+      dispatch(signInStart());
       const res=await fetch('http://localhost:3000/api/auth/signin',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
@@ -27,6 +30,7 @@ function SignIn() {
       setLoading(false);
       console.log(data);
       if(res.status===200){
+        dispatch(signInSuccess(data));
         navigate('/')
       }
       else{
