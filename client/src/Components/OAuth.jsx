@@ -29,7 +29,7 @@ const handleGoogleClick=async()=>{
             })
         })
         const data= await res.json()
-        console.log(`ye wala promise ${data}`);
+        console.log(data);
         if(res.status===200){
             dispatch(signInSuccess(data))
             navigate('/')
