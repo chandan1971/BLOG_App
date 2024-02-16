@@ -39,7 +39,7 @@ function DashProfile() {
           setImageFIleUploadProgress(progress.toFixed(0))
         },
         (error)=>{
-          setImageFileUploadError("Could not upload file (File size must be less than 2 MB)");
+          setImageFileUploadError("Could not upload file (File size must be less than 2 MB and of .png or .jpeg format)");
           setImageFIleUploadProgress(0);
           setImageUrl(null);
           setImageFile(null);
@@ -61,6 +61,8 @@ function DashProfile() {
             <div className='relative w-32 h-32 self-center  cursor-pointer shadow-md overflow-hidden rounded-full' onClick={()=>{
               filePickerRef.current.click()
             }}>
+              <img src= {imageUrl || currentUser.profilePicture} alt="user" className={`rounded-full w-full h-full object-cover border-8  border-[lightgray] ${
+              imageFileUploadProgress>0 && imageFileUploadProgress<100 && `opacity-60`}`}/>
               {imageFileUploadProgress && imageFileUploadProgress<100 && 
                 <CircularProgressbar
                 value={imageFileUploadProgress || 0}
@@ -82,8 +84,7 @@ function DashProfile() {
                 }}
             />
               }
-            <img src= {imageUrl || currentUser.profilePicture} alt="user" className={`rounded-full w-full h-full object-cover border-8  border-[lightgray] ${
-              imageFileUploadProgress>0 && imageFileUploadProgress<100 && `opacity-60`}`}/>
+            
             </div>
             {imageFileUploadError && <Alert color='failure'>
               {imageFileUploadError}

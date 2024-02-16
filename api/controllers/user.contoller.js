@@ -4,4 +4,8 @@ const test=(req,res)=>{
     })
 }
 
+const updateUser=async(req,res,next)=>{
+    console.log(req.user);
+}
+
 module.exports=test
