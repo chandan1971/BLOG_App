@@ -24,13 +24,20 @@ function SignIn() {
       dispatch(signInStart());
       const res=await fetch('http://localhost:3000/api/auth/signin',{
         method:'POST',
-        headers:{'Content-Type':'application/json'},
+        mode:'cors',
+        headers:{'Content-Type':'application/json',
+        'Access-Control-Allow-Origin':'http://localhost:3000',
+        'Access-Control-Allow-Credentials':'false',
+        'Accept':'application/json'
+      },
         body:JSON.stringify(formData),
+        credentials:'include',
       })
       const data=await res.json(); 
+      // console.log('Cookies: ', res._headers["set-cookie"]);
       setLoading(false);
-      console.log(data);
       if(res.status===200){
+        console.log(data);
         dispatch(signInSuccess(data));
         navigate('/')
       }
