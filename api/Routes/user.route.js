@@ -6,6 +6,7 @@ const router=express.Router()
 
 router.get('/test',silly.test)
 router.put('/update/:userId',verifyToken,silly.updateUser)
+router.delete('/delete/:userId',verifyToken,silly.deleteUser)
 
 module.exports=router
 
