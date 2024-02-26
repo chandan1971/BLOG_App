@@ -68,7 +68,7 @@ function DashProfile() {
       }
       try {
         dispatch(updateStart());
-        //console.log(formData);
+        console.log(formData);
         
         const res=await fetch(`http://localhost:3000/api/user/update/${currentUser._id}`,{
         method:'PUT',
@@ -83,6 +83,7 @@ function DashProfile() {
       })
         const data=await res.json();
         if(res.status===200){
+          // console.log(data);
           dispatch(updateSuccess(data));
         }
         else{

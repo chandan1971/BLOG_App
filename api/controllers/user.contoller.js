@@ -37,12 +37,13 @@ const updateUser=async(req,res,next)=>{
             $set:{
                 username:req.body.username,
                 email:req.body.email,
-                profilePicture:req.body.ProfilePicture,
+                profilePicture:req.body.profilePicture,
                 password:req.body.password,
             },
         },
         {new:true}
         );
+        // console.log(updatedUser._doc);
         const {password, ...rest}=updatedUser._doc;
         res.status(200).send(rest);
     } catch (error) {
