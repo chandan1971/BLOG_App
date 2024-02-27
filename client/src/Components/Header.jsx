@@ -100,8 +100,8 @@ function Header() {
             <Navbar.Link active={path==='/about'} as={'div'}>
                 <Link to='/about'>About</Link>
             </Navbar.Link>
-            <Navbar.Link active={path==='/projects'} as={'div'}>
-                <Link to='/projects'>Projects</Link>
+            <Navbar.Link active={path==='/project'} as={'div'}>
+                <Link to='/project'>Project</Link>
             </Navbar.Link>
             
         </Navbar.Collapse>
