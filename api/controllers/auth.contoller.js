@@ -42,6 +42,7 @@ const signin=async(req,res,next)=>{
         const token=jwt.sign(
             {
                 id:validUser._id,
+                Admin:validUser.isAdmin
             },
             process.env.JWT_SECRET,
         )
@@ -63,7 +64,8 @@ const google=async(req,res,next)=>{
         const user=await User.findOne({email});
         if(user){
             const token=jwt.sign({
-                id:user._id
+                id:user._id,
+                Admin:user.isAdmin
             },
             process.env.JWT_SECRET);
             const {password,...rest}=user._doc;
