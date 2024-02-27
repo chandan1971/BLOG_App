@@ -9,6 +9,8 @@ const test=(req,res)=>{
 }
 
 const updateUser=async(req,res,next)=>{
+    // console.log(req._doc);
+    // console.log(req.params.userId);
     if(req.user.id!==req.params.userId){
         return next(errorHandler(400,'You are not allowed to update this user'))
     }
@@ -58,9 +60,18 @@ const deleteUser=async(req,res,next)=>{
     }
     try {
         await User.findByIdAndDelete(req.params.userId);
-        res.status(200).send('User Deleted');
+        res.status(200).send({message:"User Deleted",
+    success:true});
     } catch (error) {
         next(error)
     }
 }
-module.exports={test,updateUser,deleteUser}
+
+const signout=(req,res,next)=>{
+    try {
+        res.clearCookie('access_token').status(200).json('User has been signed out');
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports={test,updateUser,deleteUser,signout}

@@ -6,6 +6,7 @@ import {FaMoon,FaSun} from "react-icons/fa"
 import {useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { toggleTheme } from '../redux/theme/themeSlice'
+import { signoutUser } from '../redux/user/userSlice'
 
 
 function Header() {
@@ -13,6 +14,27 @@ function Header() {
     const {currentUser}=useSelector(state=>state.user)
     const dispatch=useDispatch()
     const {theme}=useSelector(state=>state.theme)
+
+    const handleSignOutUser=async ()=>{
+        try {
+          const res=await fetch(`http://localhost:3000/api/user/signout`,{
+            method:'POST',
+            mode:'cors',
+            credentials: 'include',
+            headers:{'Content-Type':'application/json',
+            'Access-Control-Allow-Origin':'http://localhost:3000',
+            'Access-Control-Allow-Credentials':'false',
+            'Accept':'application/json'
+          }
+          })
+          if(res.status==200){
+            dispatch(signoutUser())
+          }
+        } catch (error) {
+          console.log(error);
+        }
+        
+      }
 
   return (
     <Navbar className='border-b-2'>
@@ -57,7 +79,7 @@ function Header() {
                     </Dropdown.Item>
                     </Link>
                     <DropdownDivider></DropdownDivider>
-                    <Dropdown.Item>
+                    <Dropdown.Item onClick={handleSignOutUser}>
                         SignOut
                     </Dropdown.Item>
                     </Dropdown>

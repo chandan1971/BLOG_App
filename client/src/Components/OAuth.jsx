@@ -21,16 +21,23 @@ const handleGoogleClick=async()=>{
         const resultsFromGoogle=await signInWithPopup(auth,provider)
         const res=await fetch('http://localhost:3000/api/auth/google',{
             method:'POST',
-            headers:{'Content-Type':'application/json'},
+            mode:'cors',
+        headers:{'Content-Type':'application/json',
+        'Access-Control-Allow-Origin':'http://localhost:3000',
+        'Access-Control-Allow-Credentials':'false',
+        'Accept':'application/json'
+      },
             body:JSON.stringify({
                 name:resultsFromGoogle.user.displayName,
                 email:resultsFromGoogle.user.email,
                 googlePhotoUrl:resultsFromGoogle.user.photoURL,
-            })
+            }),
+            credentials:'include',
         })
         const data= await res.json()
         console.log(data);
         if(res.status===200){
+
             dispatch(signInSuccess(data))
             navigate('/')
         }

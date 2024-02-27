@@ -1,4 +1,4 @@
-import { Alert, Button, TextInput } from 'flowbite-react'
+import { Alert, Button, Modal, TextInput } from 'flowbite-react'
 import React, { useEffect, useRef, useState } from 'react'
 import{ useDispatch, useSelector} from 'react-redux'
 import {getStorage }from "firebase/storage"
@@ -6,7 +6,9 @@ import { getDownloadURL, uploadBytesResumable,ref } from "firebase/storage"
 import {app} from "../firebase"
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { updateStart,updateSuccess,updateFailure } from '../redux/user/userSlice';
+import { updateStart,updateSuccess,updateFailure,deleteUserStart,deleteUserSuccess,deleteUserFailure ,signoutUser} from '../redux/user/userSlice';
+import {HiOutlineExclamationCircle} from 'react-icons/hi'
+
 
 function DashProfile() {
     const {currentUser}=useSelector(state=>state.user)
@@ -16,6 +18,10 @@ function DashProfile() {
     const[imageFileUploadError,setImageFileUploadError]=useState(null);
     const filePickerRef=useRef();
     const [formData,setFormData]=useState({});
+    const[showModel,setShowModel]=useState(false);
+    const[showModel2,setShowModel2]=useState(false);
+    const [updateUserSuccess,setUpdateUserSuccess]=useState(null);
+    const[updateUserError,setUpdateUserError]=useState(null);
     const dispatch=useDispatch();
     const handleImageChange=(e)=>{
         const file=e.target.files[0];
@@ -29,7 +35,9 @@ function DashProfile() {
         uploadImage();
       }
     },[imageFile]);
-
+    const handleDelete=(e)=>{
+      setShowModel(true);
+    }
     const uploadImage=async()=>{
       const storage=getStorage(app);
       const fileName=new Date().getTime() +imageFile.name;
@@ -61,6 +69,56 @@ function DashProfile() {
     const handleChange=(e)=>{
       setFormData({...formData,[e.target.id]:e.target.value})
     }
+
+    const handleSignOutUser=async ()=>{
+      setShowModel2(false);
+      try {
+        const res=await fetch(`http://localhost:3000/api/user/signout`,{
+          method:'POST',
+          mode:'cors',
+          credentials: 'include',
+          headers:{'Content-Type':'application/json',
+          'Access-Control-Allow-Origin':'http://localhost:3000',
+          'Access-Control-Allow-Credentials':'false',
+          'Accept':'application/json'
+        }
+        })
+        if(res.status==200){
+          dispatch(signoutUser())
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }
+
+
+    const handleDeleteUser=async ()=>{
+      setShowModel(false);
+      try {
+        dispatch(deleteUserStart());
+          const res=await fetch(`http://localhost:3000/api/user/delete/${currentUser._id}`,{
+          method:'DELETE',
+          mode:'cors',
+          credentials: 'include',
+          headers:{'Content-Type':'application/json',
+          'Access-Control-Allow-Origin':'http://localhost:3000',
+          'Access-Control-Allow-Credentials':'false',
+          'Accept':'application/json'
+        }
+        })
+        const data=await res.json();
+        if(res.status===200){
+          dispatch(deleteUserSuccess(data));
+        }
+        else{
+          dispatch(deleteUserFailure(data.message));
+        }
+      } catch (err) {
+        dispatch(deleteUserFailure(err.message));
+        
+      }
+    }
     const handleSubmit=async (e)=>{
       e.preventDefault();
       if(Object.keys(formData).length===0){
@@ -82,12 +140,13 @@ function DashProfile() {
         body:JSON.stringify(formData),
       })
         const data=await res.json();
+        console.log(data);
         if(res.status===200){
-          // console.log(data);
+          setUpdateUserSuccess('User Updated Successfully !!')
           dispatch(updateSuccess(data));
         }
         else{
-          console.log(data);
+          setUpdateUserError('User Update Failed !!')
           dispatch(updateFailure(data));
         }
       } catch (error) {
@@ -140,10 +199,57 @@ function DashProfile() {
             </Button>
         </form>
         <div className='text-red-500 flex justify-between mt-5'>
-          <span className='cursor-pointer '>Delete Account</span>
-          <span className='cursor-pointer '>Sign Out</span>
+          <span className='cursor-pointer ' onClick={handleDelete}>Delete Account</span>
+          <span className='cursor-pointer ' onClick={()=>setShowModel2(true)} >Sign Out</span>
 
         </div>
+        {
+            updateUserSuccess && (
+            <Alert color='success' className='mt-5'>
+              {updateUserSuccess}
+              
+            </Alert>
+          )
+        }
+        {
+          updateUserError && (
+            <Alert color='failure' className='mt-5'>
+              {updateUserError}
+            </Alert>
+          )
+        }
+        {
+          <Modal show={showModel} onClose={()=> setShowModel(false)} popup size='md'>
+            <Modal.Header>
+            </Modal.Header>
+            <Modal.Body>
+              <div className='text-center'>
+                <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto'></HiOutlineExclamationCircle>
+                <h3 className='mb-5 text-lg text-gray-500'>Are you sure you want to delete your account ?</h3>
+                <div className='flex gap-32'>
+                  <Button color='failure' onClick={handleDeleteUser}>Yes, I am Sure</Button>
+                  <Button color='gray' onClick={()=>setShowModel(false)}>No, Cancel</Button>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
+        }
+        {
+          <Modal show={showModel2} onClose={()=> setShowModel2(false)} popup size='md'>
+            <Modal.Header>
+            </Modal.Header>
+            <Modal.Body>
+              <div className='text-center'>
+                <HiOutlineExclamationCircle className='h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto'></HiOutlineExclamationCircle>
+                <h3 className='mb-5 text-lg text-gray-500'>Are you sure you want to SignOut from your account ?</h3>
+                <div className='flex gap-32'>
+                  <Button color='failure' onClick={handleSignOutUser}>Yes, I am Sure</Button>
+                  <Button color='gray' onClick={()=>setShowModel2(false)}>No, Cancel</Button>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
+        }
     </div>
   )
 }
