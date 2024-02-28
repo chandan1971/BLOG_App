@@ -3,7 +3,6 @@ const Post=require("../models/post.model.js")
 
 
 const create= async(req,res,next)=>{
-    console.log(req.user);
     if(!req.user.Admin){
         return next(errorHandler(403,"You are not allowed to post"))
     }
