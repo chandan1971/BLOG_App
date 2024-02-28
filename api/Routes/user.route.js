@@ -2,6 +2,7 @@ const express=require('express')
 const verifyToken=require('../utils/verifyUser.js')
 const silly=require('../controllers/user.contoller.js')
 
+
 const router=express.Router()
 
 router.get('/test',silly.test)
