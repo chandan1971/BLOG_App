@@ -17,6 +17,7 @@ function CreatePost() {
   const [imageUploadError,setImageUploadError]=useState(null);
   const [publishError,setPublishError]=useState(null);
   const navigate=useNavigate();
+  console.log(formData);
   const handleUploadImage=async()=>{
     try {
       if(!file){
