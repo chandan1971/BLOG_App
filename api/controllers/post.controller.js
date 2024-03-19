@@ -1,6 +1,5 @@
 const errorHandler = require("../utils/error.js")
 const Post=require("../models/post.model.js")
-const { find } = require("../models/user.model.js")
 
 
 const create= async(req,res,next)=>{
@@ -33,18 +32,10 @@ const getposts=async (req,res,next)=>{
         const limit=parseInt(req.query.limit) || 9;
         const sortDirection=req.query.order=== 'asc' ? 1:-1;
         const posts=await Post.find({
-            ...(req.query.userId && {
-                userId:req.query.userId
-            }),
-            ...(req.query.category && {
-                userId:req.query.category
-            }),
-            ...(req.query.slug && {
-                userId:req.query.slug
-            }),
-            ...(req.query.postId && {
-                userId:req.query.postId
-            }),
+            ...(req.query.userId && {userId:req.query.userId}),
+            ...(req.query.category && {category: req.query.category}),
+            ...(req.query.slug && {slug:req.query.slug}),
+            ...(req.query.postId && {_id:req.query.postId}),
             ...(req.query.searchTerm && {
                 $or:[
                     {title:{$regex: req.query.searchTerm, $options:'i'}},
@@ -55,7 +46,9 @@ const getposts=async (req,res,next)=>{
 
         }).sort({updatedAt:sortDirection}).skip(startIndex).limit(limit);
 
-        const totalPosts= await Post.countDocuments();
+        const totalPosts= await Post.countDocuments(
+            {userId:req.query.userId,}
+        );
 
         const now =new Date();
 
@@ -67,6 +60,7 @@ const getposts=async (req,res,next)=>{
 
         const lastMonthPosts=await Post.countDocuments({
             createdAt:{$gte: oneMonthAgo},
+            userId:req.query.userId,
         });
 
         res.status(200).send({

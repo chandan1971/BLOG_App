@@ -1,10 +1,8 @@
 const mongoose=require('mongoose')
-const User=require('./user.model')
 
 const postSchema= new mongoose.Schema({
     userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:User,
+        type:String,
         required:true,
     },
     content:{
