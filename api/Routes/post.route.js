@@ -1,9 +1,10 @@
 const express=require('express');
 const verifyToken=require('../utils/verifyUser')
-const posts=require("../controllers/post.controller")
+const {create,getposts}=require("../controllers/post.controller")
 
 const router=express.Router();
 
-router.post('/create',verifyToken,posts.create)
+router.post('/create',verifyToken,create)
+router.get('/getposts',getposts)
 
 module.exports=router
