@@ -9,8 +9,7 @@ const test=(req,res)=>{
 }
 
 const updateUser=async(req,res,next)=>{
-    // console.log(req._doc);
-    // console.log(req.params.userId);
+    
     if(req.user.id!==req.params.userId){
         return next(errorHandler(400,'You are not allowed to update this user'))
     }
@@ -55,7 +54,7 @@ const updateUser=async(req,res,next)=>{
 
 
 const deleteUser=async(req,res,next)=>{
-    if(req.user.id!==req.params.userId){
+    if(!req.user.Admin && req.user.id!==req.params.userId){
         return next(errorHandler(400,'You are not allowed to update this user'))
     }
     try {
@@ -74,4 +73,40 @@ const signout=(req,res,next)=>{
         next(error)
     }
 }
-module.exports={test,updateUser,deleteUser,signout}
+
+const getusers= async (req,res,next)=>{
+    if(!req.user.Admin){
+        return next(errorHandler(403,"You are not allowe to see all Users"))
+    }
+    try {
+        const startIndex=parseInt(req.query.startIndex) || 0;
+        const limit=parseInt(req.query.limit) || 9;
+        const sortDirection=req.query.sort==='asc' ? 1: -1 ;
+
+        const Users= await User.find()
+        .sort({createdAt:sortDirection})
+        .skip(startIndex)
+        .limit(limit);
+        const UserWithoutPassword=Users.map((user)=>{
+            const {password,...rest}=user._doc;
+            return rest;
+        })
+        const totalUsers=await User.countDocuments();
+        const now =new Date();
+        const oneMonthAgo=new Date(
+            now.getFullYear(),
+            now.getMonth()-1,
+            now.getDate(),
+        )
+        const lastMonthUsers=await User.countDocuments({createdAt:{$gte:oneMonthAgo}});
+
+        res.status(200).send({
+            users:UserWithoutPassword,
+            totalUsers,
+            lastMonthUsers,
+        });
+    } catch (error) {
+        next(error)
+    }
+}
+module.exports={test,updateUser,deleteUser,signout,getusers}
