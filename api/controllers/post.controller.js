@@ -88,4 +88,28 @@ const deletepost=async(req,res,next)=>{
     }
 }
 
-module.exports={create,getposts,deletepost}
+const updatepost=async(req,res,next)=>{
+    if(!req.user.Admin || req.user.id!==req.params.userId){
+        return errorHandler(403,"You are not allowed to update this post")
+    }
+    try {
+        const updatedPost=await Post.findByIdAndUpdate(
+            req.params.postId,
+            {
+            $set:{
+                    title:req.body.title,
+                    content:req.body.content,
+                    category:req.body.category,
+                    image:req.body.image,
+                },
+            },
+        {new:true}
+        );
+        res.status(200).send(updatedPost);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports={create,getposts,deletepost,updatepost}

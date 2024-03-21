@@ -8,9 +8,11 @@ import {app} from '../firebase'
 import {CircularProgressbar} from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import { useNavigate,useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 function UpdatePost() {
+  const {currentUser}=useSelector((state)=>state.user) 
   const [formData,setFormData]=useState({});
   const [file,setFile]=useState(null);
   const [imageUploadProgress,setImageUploadProgress]=useState(null);
@@ -49,7 +51,7 @@ function UpdatePost() {
     } catch (error) {
       console.log(error.message);
     }
-  })
+  },[postId])
 
   const handleUploadImage=async()=>{
     try {
@@ -93,34 +95,34 @@ function UpdatePost() {
   }
 
   const handleSubmit=async(e)=>{
-    console.log(formData);
     e.preventDefault();
     try {
-      const res=await fetch('http://localhost:3000/api/post/update',{
-        method:'UPDATE',
+      const res=await fetch(`http://localhost:3000/api/post/updatepost/${formData._id}/${currentUser._id}`,{
+        method:'PUT',
         mode:'cors',
-        credentials:'include',
         headers:{'Content-Type':'application/json',
-          'Access-Control-Allow-Origin':'http://localhost:3000',
-          'Access-Control-Allow-Credentials':'false',
-          'Accept':'application/json'
-        },
+        'Access-Control-Allow-Origin':'http://localhost:3000',
+        'Access-Control-Allow-Credentials':'false',
+        'Accept':'application/json'
+      },
+      credentials:'include',
         body: JSON.stringify(formData),
       })
       const data=await res.json();
+      console.log(data);
       console.log(res.status);
-      if(res.status===201){
+      if(!res.ok){
+        setPublishError(data.message);
+        return;
+      }
+      else{
         setPublishError(null);
         navigate(`/post/${data.slug}`)
         return;
       }
-      else{
-        setPublishError(data.message);
-        return;
-      }
       
     } catch (error) {
-      setPublishError("Publish Failed !!");
+      setPublishError("Update Request Failed !!");
       return;
     }
   }
