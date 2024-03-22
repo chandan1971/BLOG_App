@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import {useSelector} from 'react-redux'
 import { useState } from 'react'
 import {  Table,Modal,Button } from 'flowbite-react'
-import { Link } from 'react-router-dom'
 import {HiOutlineExclamationCircle} from 'react-icons/hi'
 import {FaCheck, FaTimes} from 'react-icons/fa'
 

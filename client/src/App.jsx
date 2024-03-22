@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import CreatePost from './pages/CreatePost.jsx'
 import OnlyAdminPrivateRoute from './Components/OnlyAdminPrivateRoute.jsx'
 import UpdatePost from './pages/UpdatePost.jsx'
+import PostPage from './pages/PostPage.jsx'
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path='/update-post/:postId' element={<UpdatePost></UpdatePost>}></Route>
         </Route>
       </Routes>
+      <Route path='/post/:postsSlug' element={<PostPage></PostPage>}></Route>
       <FooterCom></FooterCom>
     </BrowserRouter>
   )
