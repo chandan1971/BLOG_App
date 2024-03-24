@@ -31,8 +31,8 @@ export default function App() {
           <Route path='/create-post' element={<CreatePost></CreatePost>}></Route>
           <Route path='/update-post/:postId' element={<UpdatePost></UpdatePost>}></Route>
         </Route>
-      </Routes>
       <Route path='/post/:postsSlug' element={<PostPage></PostPage>}></Route>
+      </Routes>
       <FooterCom></FooterCom>
     </BrowserRouter>
   )
