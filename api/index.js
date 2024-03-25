@@ -4,6 +4,7 @@ require('dotenv').config()
 const userRoutes=require("./Routes/user.route.js");
 const authRoutes=require("./Routes/auth.route.js")
 const postRoutes=require("./Routes/post.route.js")
+const commentRoutes=require('./Routes/comment.route.js')
 const cors=require('cors')
 const cookieParser=require('cookie-parser')
 
@@ -34,6 +35,8 @@ mongoose
 app.use('/api/user',userRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/post',postRoutes);
+app.use('/api/comment',commentRoutes);
+
 
 app.use((err,req,res,next)=>{
     const statusCode=err.statusCode || 500;
