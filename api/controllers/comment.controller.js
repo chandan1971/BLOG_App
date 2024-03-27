@@ -33,4 +33,27 @@ const getPostComment=async (req,res,next)=>{
     }
 }
 
-module.exports={createComment,getPostComment}
+const likeComment=async(req,res,next)=>{
+    try {
+        const comment =await Comment.findById(req.params.commentId)
+        if(!comment){
+            return next(errorHandler(404,"Comment not found"));
+
+        }
+        const userIndex=comment.likes.indexOf(req.user.id);
+        if(userIndex===-1){
+            comment.numberofLikes+=1;
+            comment.likes.push(req.user.id);
+        }
+        else{
+            comment.numberofLikes-=1;
+            comment.likes.splice(userIndex,1);
+        }
+        await comment.save();
+        res.status(200).send(comment);
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports={createComment,getPostComment,likeComment}
