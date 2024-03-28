@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import CallToAction from '../Components/CallToAction';
 import CommentSection from '../Components/CommentSection';
+import PostCard from '../Components/PostCard';
 
 function PostPage() {
     const {postsSlug}=useParams()
     const [loading,setLoading]=useState(true);
     const [error,setError]=useState(null);
     const [post,setPost]=useState(null);
+    const [recentPosts,setRecentPosts]=useState(null);
 
     useEffect(()=>{
         // console.log(postsSlug);
@@ -36,6 +38,25 @@ function PostPage() {
         fetchPost();
     },[postsSlug])
 
+    useEffect(()=>{
+            const fetchRecentPosts=async()=>{
+                try {
+                    const res=await fetch(`http://localhost:3000/api/post/getposts?limit=3`,{
+                        method:'GET',
+                        mode:'cors',
+                    })
+                    const data=await res.json();
+                    if(res.ok){
+                        setRecentPosts(data.posts);
+                    }
+                    
+                } catch (error) {
+                    console.log(error.message);
+                }
+            }
+            fetchRecentPosts()
+    })
+
 if(loading) return (
     <div className='flex justify-center items-center min-h-screen'>
         <Spinner size='xl'></Spinner>
@@ -55,6 +76,18 @@ if(loading) return (
         <div className='p-3 max-w-2xl mx-auto w-full post-content' dangerouslySetInnerHTML={{__html: post && post.content}}></div>
         <div className='max-w-4xl mx-auto w-full'><CallToAction></CallToAction></div>
         <CommentSection postId={post &&  post._id}></CommentSection>
+        <div className='flex flex-col justify-center items-center mb-5'>
+            <h1 className='text-xl mt-5'>Recent Articles</h1>
+            <div className='flex flex-col gap-5 mt-5 justify-center'>
+                {
+                    recentPosts && (
+                        recentPosts.map((post)=>(
+                            <PostCard key={post._id} post={post}></PostCard>
+                        ))
+                    )
+                }
+            </div>
+        </div>
     </main>
   )
 }

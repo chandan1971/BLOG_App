@@ -103,6 +103,9 @@ function CommentSection({postId}) {
             c._id=== comment._id ? {...c, content:editedContent}:comment)
         )
     }
+    const handleDelete=async(comment)=>{
+        setComments(comments.filter((c)=> c._id!==comment))
+    }
   return (
     <div className='max-w-2xl mx-auto w-full p-3'>
         {
@@ -161,7 +164,7 @@ function CommentSection({postId}) {
                 </div>
                 {
                 comments.map(comment=>(
-                    <Comment key={comment._id} comment={comment} onLike={handleLike} onEdit={handleEdit}></Comment>
+                    <Comment key={comment._id} comment={comment} onLike={handleLike} onEdit={handleEdit} onDelete={handleDelete}></Comment>
                 ))
                 }
                 </>

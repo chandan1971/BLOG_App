@@ -76,4 +76,24 @@ const updateComment=async(req,res,next)=>{
     }
 }
 
-module.exports={createComment,getPostComment,likeComment,updateComment}
+const deleteComment=async(req,res,next)=>{
+    try {
+        const comment=await Comment.findById(req.params.commentId);
+        if(!comment){
+            return next(errorHandler(404,"Comment not found"));
+        }
+        if(req.user.id!== comment.userId && user.Admin){
+            return next(errorHandler(403,"You are not authorized to delete this comment"));
+        }
+        const deletedComment=await Comment.findByIdAndDelete(req.params.commentId);
+        console.log(deletedComment);
+        res.status(200).send({
+            "message":"Comment Deleted Successfully",
+        })
+        
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports={createComment,getPostComment,likeComment,updateComment,deleteComment}
