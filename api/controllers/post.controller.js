@@ -46,9 +46,7 @@ const getposts=async (req,res,next)=>{
 
         }).sort({updatedAt:sortDirection}).skip(startIndex).limit(limit);
 
-        const totalPosts= await Post.countDocuments(
-            {userId:req.query.userId,}
-        );
+        const totalPosts= await Post.countDocuments();
 
         const now =new Date();
 
@@ -59,8 +57,7 @@ const getposts=async (req,res,next)=>{
         );
 
         const lastMonthPosts=await Post.countDocuments({
-            createdAt:{$gte: oneMonthAgo},
-            userId:req.query.userId,
+            createdAt:{$gte: oneMonthAgo}
         });
 
         res.status(200).send({

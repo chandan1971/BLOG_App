@@ -78,7 +78,7 @@ if(loading) return (
         <CommentSection postId={post &&  post._id}></CommentSection>
         <div className='flex flex-col justify-center items-center mb-5'>
             <h1 className='text-xl mt-5'>Recent Articles</h1>
-            <div className='flex flex-col gap-5 mt-5 justify-center'>
+            <div className='flex  gap-5 mt-5 justify-center'>
                 {
                     recentPosts && (
                         recentPosts.map((post)=>(
