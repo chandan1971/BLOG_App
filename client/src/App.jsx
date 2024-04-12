@@ -14,6 +14,7 @@ import OnlyAdminPrivateRoute from './Components/OnlyAdminPrivateRoute.jsx'
 import UpdatePost from './pages/UpdatePost.jsx'
 import PostPage from './pages/PostPage.jsx'
 import ScrollToTop from './Components/ScrollToTop.jsx'
+import Search from './pages/Search.jsx'
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path='/' element={<Home></Home>} ></Route>
         <Route path='/about' element={<About></About>} ></Route>
         <Route path='/signUp' element={<SignUp></SignUp>} ></Route>
+        <Route path='/search'element={<Search></Search>} ></Route>
         <Route path='/signIn'element={<SignIn></SignIn>} ></Route>
         <Route path='/project' element={<Project></Project>}></Route>
         <Route element={<Privateroute></Privateroute>}>
