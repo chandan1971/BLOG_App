@@ -7,7 +7,7 @@ const postRoutes=require("./Routes/post.route.js")
 const commentRoutes=require('./Routes/comment.route.js')
 const cors=require('cors')
 const cookieParser=require('cookie-parser')
-const path=require('path');
+const path =require('path');
 
 
 
@@ -33,17 +33,15 @@ mongoose
     console.log(err);
 })
 
-const dirname = path.resolve();
-
 app.use('/api/user',userRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/post',postRoutes);
 app.use('/api/comment',commentRoutes);
 
-app.use(express.static(path.join(dirname, '/client/dist')));
+app.use(express.static(path.join(__dirname, '/client/dist')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
 
 
