@@ -13,7 +13,7 @@ function CommentSection({postId}) {
     useEffect(()=>{
         const getComments=async()=>{
             try {
-                const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/comment/getPostComment/${postId}`,{
+                const res=await fetch(`${import.meta.env.PORT }/api/comment/getPostComment/${postId}`,{
                     method:'GET',
                 })
                 const data=await res.json();
@@ -36,7 +36,7 @@ function CommentSection({postId}) {
         e.preventDefault();
         setCommentError(null);
         try {
-            const res=await fetch('http://localhost:${import.meta.env.PORT || 3000}/api/comment/create',{
+            const res=await fetch(`${import.meta.env.PORT}/api/comment/create`,{
         method:'POST',
         mode:'cors',
         headers:{'Content-Type':'application/json',
@@ -68,7 +68,7 @@ function CommentSection({postId}) {
             if(!currentUser){
                 navigate('/signIn')
             }
-            const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/comment/likeComment/${commentId}`,{
+            const res=await fetch(`${import.meta.env.PORT }/api/comment/likeComment/${commentId}`,{
                 method:'PUT',
                 mode:'cors',
                 headers:{

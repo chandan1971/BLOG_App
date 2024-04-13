@@ -17,7 +17,7 @@ function DashboardComponent() {
     useEffect(()=>{
         const fetchUsers=async()=>{
             try {
-                const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/getusers?limit=5`,{
+                const res=await fetch(`${import.meta.env.PORT}/api/user/getusers?limit=5`,{
                 method:'GET',
                 mode:'cors',
                 headers:{
@@ -44,7 +44,7 @@ function DashboardComponent() {
         }
         const fetchPosts=async()=>{
             try {
-                const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/post/getposts?limit=5`,{
+                const res=await fetch(`${import.meta.env.PORT}/api/post/getposts?limit=5`,{
                 method:'GET',
                 mode:'cors',
                 headers:{
@@ -70,7 +70,7 @@ function DashboardComponent() {
         }
         const fetchComments=async()=>{
             try {
-                const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/comment/getcomments?limit=5`,{
+                const res=await fetch(`${import.meta.env.PORT}/api/comment/getcomments?limit=5`,{
                 method:'GET',
                 mode:'cors',
                 headers:{
