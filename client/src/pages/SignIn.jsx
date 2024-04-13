@@ -26,7 +26,7 @@ function SignIn() {
         method:'POST',
         mode:'cors',
         headers:{'Content-Type':'application/json',
-        'Access-Control-Allow-Origin':'http://localhost:3000',
+        'Access-Control-Allow-Origin':'*',
         'Access-Control-Allow-Credentials':'false',
         'Accept':'application/json'
       },
