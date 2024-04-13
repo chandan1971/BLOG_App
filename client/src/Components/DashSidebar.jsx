@@ -22,7 +22,7 @@ function DashSidebar() {
 
     const handleSignOutUser=async ()=>{
         try {
-          const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/signout`,{
+          const res=await fetch(`/api/user/signout`,{
             method:'POST',
             mode:'cors',
             credentials: 'include',

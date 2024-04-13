@@ -61,7 +61,7 @@ function DashUsers() {
   const handleDeleteUser=async()=>{
     setShowModel(false);
     try {
-      const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/delete/${userIdToDelete}`,{
+      const res=await fetch(`/api/user/delete/${userIdToDelete}`,{
         method:'DELETE',
         mode:'cors',
         credentials:'include',
