@@ -18,7 +18,7 @@ function Comment({comment, onLike, onEdit,onDelete}) {
     useEffect(()=>{
         const getUser=async()=>{
             try {
-                const res=await fetch(`http://localhost:3000/api/user/${comment.userId}`,{
+                const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/${comment.userId}`,{
                     method:'GET',
                 })
                 const data=await res.json();
@@ -38,7 +38,7 @@ function Comment({comment, onLike, onEdit,onDelete}) {
 
     const handleSave=async()=>{
         try {
-            const res=await fetch(`http://localhost:3000/api/comment/editComment/${comment._id}`,{
+            const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/comment/editComment/${comment._id}`,{
                 method:'PUT',
                 mode:'cors',
                 headers:{
@@ -65,7 +65,7 @@ function Comment({comment, onLike, onEdit,onDelete}) {
     }
     const handleDeleteComment=async()=>{
         try {
-            const res=await fetch(`http://localhost:3000/api/comment/deleteComment/${comment._id}`,{
+            const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/comment/deleteComment/${comment._id}`,{
                 method:'DELETE',
                 mode:'cors',
                 headers:{

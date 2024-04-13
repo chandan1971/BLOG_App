@@ -74,7 +74,7 @@ function DashProfile() {
     const handleSignOutUser=async ()=>{
       setShowModel2(false);
       try {
-        const res=await fetch(`http://localhost:3000/api/user/signout`,{
+        const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/signout`,{
           method:'POST',
           mode:'cors',
           credentials: 'include',
@@ -98,7 +98,7 @@ function DashProfile() {
       setShowModel(false);
       try {
         dispatch(deleteUserStart());
-          const res=await fetch(`http://localhost:3000/api/user/delete/${currentUser._id}`,{
+          const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/delete/${currentUser._id}`,{
           method:'DELETE',
           mode:'cors',
           credentials: 'include',
@@ -129,7 +129,7 @@ function DashProfile() {
         dispatch(updateStart());
         console.log(formData);
         
-        const res=await fetch(`http://localhost:3000/api/user/update/${currentUser._id}`,{
+        const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/update/${currentUser._id}`,{
         method:'PUT',
         mode:'cors',
         credentials: 'include',

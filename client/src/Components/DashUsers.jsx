@@ -14,7 +14,7 @@ function DashUsers() {
   useEffect(()=>{
     const fetchUsers=async()=>{
       try {
-        const res=await fetch(`http://localhost:3000/api/user/getusers?userId=${currentUser._id}`,{
+        const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/getusers?userId=${currentUser._id}`,{
           method:'GET',
           mode:'cors',
           credentials:'include',
@@ -44,7 +44,7 @@ function DashUsers() {
   const handleShowMore=async ()=>{
     const startIndex=users.length;
     try {
-      const res=await fetch(`http://localhost:3000/api/post/getposts?startIndex=${startIndex}`)
+      const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/post/getposts?startIndex=${startIndex}`)
       const data=await res.json();
       if(res.ok){
         setUsers((prev)=>[...prev,...data.users]);
@@ -61,7 +61,7 @@ function DashUsers() {
   const handleDeleteUser=async()=>{
     setShowModel(false);
     try {
-      const res=await fetch(`http://localhost:3000/api/user/delete/${userIdToDelete}`,{
+      const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/delete/${userIdToDelete}`,{
         method:'DELETE',
         mode:'cors',
         credentials:'include',

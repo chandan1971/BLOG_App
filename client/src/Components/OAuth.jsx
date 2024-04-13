@@ -19,7 +19,7 @@ const handleGoogleClick=async()=>{
     })
     try{
         const resultsFromGoogle=await signInWithPopup(auth,provider)
-        const res=await fetch('http://localhost:3000/api/auth/google',{
+        const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/auth/google`,{
             method:'POST',
             mode:'cors',
         headers:{'Content-Type':'application/json',

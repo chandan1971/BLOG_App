@@ -25,7 +25,7 @@ function UpdatePost() {
   useEffect(()=>{
     try {
       const fetchPost=async()=>{
-        const res=await fetch(`http://localhost:3000/api/post/getposts?postId=${postId}`,{
+        const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/post/getposts?postId=${postId}`,{
           method:'GET',
           mode:'cors',
           credentials:'include',
@@ -97,7 +97,7 @@ function UpdatePost() {
   const handleSubmit=async(e)=>{
     e.preventDefault();
     try {
-      const res=await fetch(`http://localhost:3000/api/post/updatepost/${formData._id}/${currentUser._id}`,{
+      const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/post/updatepost/${formData._id}/${currentUser._id}`,{
         method:'PUT',
         mode:'cors',
         headers:{'Content-Type':'application/json',

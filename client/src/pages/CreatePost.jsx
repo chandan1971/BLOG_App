@@ -63,7 +63,7 @@ function CreatePost() {
     console.log(formData);
     e.preventDefault();
     try {
-      const res=await fetch('http://localhost:3000/api/post/create',{
+      const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/post/create`,{
         method:'POST',
         mode:'cors',
         credentials:'include',
