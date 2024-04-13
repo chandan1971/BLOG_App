@@ -14,7 +14,7 @@ function CallToAction() {
             <Button gradientDuoTone='purpleToPink'className='rounded-tl-xl rounded-bl-none'><a href='https://github.com/chandan1971' target='_blank' rel='noopener noreferrer' >GitHub</a></Button>
         </div >
         <div className='p-7 flex-1'>
-            <img src="https://www.bleepstatic.com/content/hl-images/2022/04/08/GitHub___headpic.jpg"  />
+            <img src="https://img.freepik.com/free-photo/cute-cat-with-computer_23-2150932178.jpg?t=st=1713000463~exp=1713004063~hmac=63a1b503cd8f537e4fd90a85a612685e6c4e8e1873d943f9e0ff35a1bc4d0d46&w=996"  />
         </div>
     </div>
   )
