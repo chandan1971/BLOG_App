@@ -18,7 +18,7 @@ function Comment({comment, onLike, onEdit,onDelete}) {
     useEffect(()=>{
         const getUser=async()=>{
             try {
-                const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/${comment.userId}`,{
+                const res=await fetch(`/api/user/${comment.userId}`,{
                     method:'GET',
                 })
                 const data=await res.json();

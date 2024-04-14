@@ -24,7 +24,7 @@ function Search() {
         const urlParams=new URLSearchParams(location.search);
         urlParams.set('startIndex',startIndex);
         const searchQuery=urlParams.toString();
-        const res=await fetch(`http://localhost:3000/api/post/getposts?${searchQuery}`,{
+        const res=await fetch(`/api/post/getposts?${searchQuery}`,{
                 method:'GET',
                 mode:'cors',
             }) 
@@ -82,7 +82,7 @@ function Search() {
         const fetchPosts=async ()=>{
             setLoading(true);
             const searchQuery=urlParams.toString();
-            const res=await fetch(`http://localhost:3000/api/post/getposts?${searchQuery}`,{
+            const res=await fetch(`/api/post/getposts?${searchQuery}`,{
                 method:'GET',
                 mode:'cors',
             }) 

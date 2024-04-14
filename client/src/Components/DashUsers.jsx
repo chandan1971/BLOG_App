@@ -14,7 +14,7 @@ function DashUsers() {
   useEffect(()=>{
     const fetchUsers=async()=>{
       try {
-        const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/user/getusers?userId=${currentUser._id}`,{
+        const res=await fetch(`/api/user/getusers?userId=${currentUser._id}`,{
           method:'GET',
           mode:'cors',
           credentials:'include',
@@ -44,7 +44,7 @@ function DashUsers() {
   const handleShowMore=async ()=>{
     const startIndex=users.length;
     try {
-      const res=await fetch(`http://localhost:${import.meta.env.PORT || 3000}/api/post/getposts?startIndex=${startIndex}`)
+      const res=await fetch(`/api/post/getposts?startIndex=${startIndex}`)
       const data=await res.json();
       if(res.ok){
         setUsers((prev)=>[...prev,...data.users]);

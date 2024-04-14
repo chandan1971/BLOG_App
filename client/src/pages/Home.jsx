@@ -8,7 +8,7 @@ function Home() {
   useEffect( ()=>{
     const fetchPosts=async()=>{
       try {
-          const res=await fetch('http://localhost:3000/api/post/getposts',{
+          const res=await fetch('/api/post/getposts',{
             method:'GET',
             mode:"cors",
           })
