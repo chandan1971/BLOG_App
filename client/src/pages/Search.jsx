@@ -8,7 +8,7 @@ function Search() {
         {
             searchTerm:'',
             sort:'desc',
-            category:'uncategorised',
+            category:'Uncategorised',
 
         }
     );
@@ -57,7 +57,7 @@ function Search() {
             sort:order})
         }
         if(e.target.id==='category'){
-            const category=e.target.value || 'Uncategorized';
+            const category=e.target.value || 'Uncategorised';
             setSidebarData({...sidebarData,category});
         }
 
@@ -139,7 +139,7 @@ function Search() {
                         <option value={'reactjs'}>React Js</option>
                         <option value="javascript">JavaScript</option>
                         <option value="C++">C++</option>
-                        <option value="uncatogorised">Uncatogorised</option>
+                        <option value="Uncategorised">Uncatogorised</option>
                     </Select>
                 </div>
                 <Button type='submit' gradientDuoTone='purpleToPink' outline>
