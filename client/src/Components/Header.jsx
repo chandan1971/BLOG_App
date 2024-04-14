@@ -55,9 +55,7 @@ function Header() {
         navigate(`/search?${searchQuery}`);
       };
 
-      const handleSmall=()=>{
-        navigate('/search')
-      }
+      
 
   return (
     <Navbar className='border-b-2'>
@@ -70,14 +68,16 @@ function Header() {
                 type='text'
                 placeholder='Search...'
                 rightIcon={AiOutlineSearch}
-                className={`lg:inline sm:${handleSmall}`}
+                className={`hidden lg:inline `}
                 value={searchTerm}
                 onChange={(e)=>setSearchTerm(e.target.value)}
             >
             </TextInput>
 
         </form>
-        <Button className='w-12 h-10 lg:hidden' color='gray' pill>
+        <Button className='w-12 h-10 lg:hidden' color='gray' pill onClick={()=>{
+            navigate('/search')
+        }}>
             <AiOutlineSearch></AiOutlineSearch>
         </Button>
         <div className='flex gap-2 md:order-2'>
