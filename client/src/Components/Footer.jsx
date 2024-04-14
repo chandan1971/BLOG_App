@@ -1,6 +1,7 @@
 import React from 'react'
 import {Footer} from 'flowbite-react'
-import {BsDiscord, BsFacebook, BsGithub, BsInstagram, BsTwitter} from 'react-icons/bs'
+import {BsDiscord, BsGithub, BsInstagram, BsTwitter} from 'react-icons/bs'
+import {SiCodeforces, SiLeetcode, SiLinkedin} from 'react-icons/si'
 import {Link} from "react-router-dom"
 
 export default function FooterCom(){
@@ -17,8 +18,8 @@ export default function FooterCom(){
                     <div>
                     <Footer.Title title='About'></Footer.Title>
                     <Footer.LinkGroup col>
-                        <Footer.Link href='http://www.100jsprojects.com' target='_blank' rel='noopener norefere' >
-                            100 JS Projects
+                        <Footer.Link href='https://chandan1971.github.io/Chandan-Portfolio/' target='_blank' rel='noopener norefere' >
+                            My Portfolio
                         </Footer.Link>
                         <Footer.Link href='/about' target='_blank' rel='noopener norefere' >
                             Chandan's Blog
@@ -31,8 +32,8 @@ export default function FooterCom(){
                         <Footer.Link href='http://www.github.com/chandan1971' target='_blank' rel='noopener norefere' >
                             Github
                         </Footer.Link>
-                        <Footer.Link href='#' target='_blank' rel='noopener norefere' >
-                            Instagram
+                        <Footer.Link href='https://leetcode.com/chandan_1357/' target='_blank' rel='noopener norefere' >
+                            LeetCode
                         </Footer.Link>
                     </Footer.LinkGroup>
                     </div>
@@ -42,7 +43,6 @@ export default function FooterCom(){
                         <Footer.Link href='#' target='_blank' rel='noopener norefere' >
                             Terms & Conditions
                         </Footer.Link>
-                        
                     </Footer.LinkGroup>
                     </div>
                 </div>
@@ -52,10 +52,10 @@ export default function FooterCom(){
                 <Footer.Copyright href='#' by="Chandan's Blog" year={new Date().getFullYear()}></Footer.Copyright>
             </div>
             <div className='flex gap-6 sm:mt-0 mt-4 sm:justify-center'>
-                <Footer.Icon href='#' icon={BsFacebook}></Footer.Icon>
-                <Footer.Icon href='#' icon={BsInstagram}></Footer.Icon>
-                <Footer.Icon href='#' icon={BsTwitter}></Footer.Icon>
-                <Footer.Icon href='#' icon={BsGithub}></Footer.Icon>
+                <Footer.Icon href='https://leetcode.com/chandan_1357/' icon={SiLeetcode}></Footer.Icon>
+                <Footer.Icon href='https://codeforces.com/profile/chandan_1357' icon={SiCodeforces}></Footer.Icon>
+                <Footer.Icon href='https://www.linkedin.com/in/chandan-dey-765100231/' icon={SiLinkedin}></Footer.Icon>
+                <Footer.Icon href='http://www.github.com/chandan1971' icon={BsGithub}></Footer.Icon>
                 <Footer.Icon href='#' icon={BsDiscord}></Footer.Icon>
             </div>
         </div>
