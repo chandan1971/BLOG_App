@@ -139,6 +139,7 @@ function Search() {
                         <option value={'reactjs'}>React Js</option>
                         <option value="javascript">JavaScript</option>
                         <option value="C++">C++</option>
+                        <option value="uncatogorised">Uncatogorised</option>
                     </Select>
                 </div>
                 <Button type='submit' gradientDuoTone='purpleToPink' outline>
