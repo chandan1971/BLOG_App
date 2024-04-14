@@ -8,7 +8,7 @@ function Search() {
         {
             searchTerm:'',
             sort:'desc',
-            category:'uncategorized',
+            category:'uncategorised',
 
         }
     );
@@ -135,7 +135,7 @@ function Search() {
                 </div>
                 <div className='flex items-center gap-2'>
                     <label className='font-semibold'>Category:</label>
-                    <Select onChange={handleChange} value={sidebarData.category} id='category'>
+                    <Select onChange={handleChange} value={sidebarData.category} id='category' defaultValue={'uncatogorised'}>
                         <option value={'reactjs'}>React Js</option>
                         <option value="javascript">JavaScript</option>
                         <option value="C++">C++</option>
@@ -150,7 +150,7 @@ function Search() {
         <div className='w-full'>
             <h1 className='text-3xl font-semibold sm:border-b bosrder-gray-500
             p-3 mt-5'>Posts Results</h1>
-            <div className='p-7 flex-wrap gap-4'>
+            <div className='p-7 flex flex-wrap gap-4'>
                 {
                     !loading && posts.length===0 && (
                         <p>No Posts found !!</p>
