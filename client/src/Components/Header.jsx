@@ -55,6 +55,10 @@ function Header() {
         navigate(`/search?${searchQuery}`);
       };
 
+      const handleSmall=()=>{
+        navigate('/search')
+      }
+
   return (
     <Navbar className='border-b-2'>
         <Link to="/" className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
@@ -66,9 +70,7 @@ function Header() {
                 type='text'
                 placeholder='Search...'
                 rightIcon={AiOutlineSearch}
-                className={`lg:inline sm:${onClick(()=>{
-                    navigate(`/search`);
-                })}`}
+                className={`lg:inline sm:${handleSmall}`}
                 value={searchTerm}
                 onChange={(e)=>setSearchTerm(e.target.value)}
             >
